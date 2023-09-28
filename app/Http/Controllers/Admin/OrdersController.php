@@ -21,6 +21,7 @@ class OrdersController extends Controller
     public function update(Request $request, $id) {
         $order = Order::findOrFail($id);
         $order->done = $request->done;
+        //$order->code = $request->code;
         $order->save();
         return response()->json($order);
     }

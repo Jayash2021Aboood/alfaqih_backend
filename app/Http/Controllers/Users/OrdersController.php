@@ -30,6 +30,7 @@ class OrdersController extends Controller
         $order = new Order();
         $order->user_id = $request->user_id;
         $order->car_id = $request->car_id;
+        $order->code = $request->code;
         $order->done = false;
         $order->save();
         Mail::raw(' admin.alfaqihcars.com/orders هناك طلب جديد على الموقع. تحقق الآن', function (Message $message) {
