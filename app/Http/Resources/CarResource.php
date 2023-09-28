@@ -20,6 +20,8 @@ class CarResource extends JsonResource
             'price' => (int)$this->price,
             'status' => $this->status,
             'type' => $this->type,
+            'shipping_cost' => (int)$this->shipping_cost,
+            'commission' => (int)$this->commission,
             'img' => $this->img,
             'imgs' => explode("|", $this->imgs),
             'specs' => json_decode($this->specs),

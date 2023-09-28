@@ -30,11 +30,18 @@ class CarsController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'img' => 'required|file',
+        ]);
+
+
         $car = new Car();
         $car->name = $request->input('name');
         $car->price = $request->input('price');
         $car->status = $request->input('status');
         $car->type = $request->input('type');
+        $car->shipping_cost = $request->input('shipping_cost');
+        $car->commission = $request->input('commission');
 
         // Handling single image
         if ($request->hasFile('img')) {
@@ -82,6 +89,14 @@ class CarsController extends Controller
 
         if ($request->has('type')) {
             $car->type = $request->input('type');
+        }
+
+        if ($request->has('shipping_cost')) {
+            $car->shipping_cost = $request->input('shipping_cost');
+        }
+
+        if ($request->has('commission')) {
+            $car->commission = $request->input('commission');
         }
 
         // Handling single image update
