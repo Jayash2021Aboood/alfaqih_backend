@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 Route::group([
   'prefix' => 'admin',
 ], function () {
+  Route::get('/sendMessage', [AuthenticationController::class, 'sendMessage']);
+
   Route::post('/auth/login', [AuthenticationController::class, 'login']);
 
   Route::post('/auth/login/verify', [AuthenticationController::class, 'verify']);
