@@ -11,7 +11,14 @@ class CarsController extends Controller
 {
     public function get() {
         $cars = Car::all();
-        return response()->json(CarResource::collection($cars));
+        $cars->makeHidden(['imgs','des']);
+
+        $result = $cars->map(function ($car) {
+            $car->specs = json_decode($car->specs);
+            return $car;
+        });
+
+        return response()->json($result);
     }
 
     public function show(Car $car) {
