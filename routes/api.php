@@ -6,6 +6,8 @@ use App\Http\Controllers\Users\CommentsController;
 use App\Http\Controllers\Users\OrdersController;
 use App\Http\Controllers\Users\PasswordResetsController;
 use App\Http\Controllers\Users\QuestionsController;
+use App\Http\Controllers\Users\PartsOrdersController;
+use App\Models\Part;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +30,8 @@ Route::get('/cars', [CarsController::class, 'get']);
 Route::get('/cars/{car}', [CarsController::class, 'show']);
 
 Route::middleware('auth:sanctum')->post('/orders', [OrdersController::class, 'store']);
+
+Route::middleware('auth:sanctum')->post('/parts_orders', [PartsOrdersController::class, 'store']);
 
 Route::group([
     'prefix' => 'auth'
