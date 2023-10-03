@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\QuestionsController;
 use App\Http\Controllers\Admin\CommentsController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\PartsController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -29,5 +30,7 @@ Route::group([
     Route::resource('comments', CommentsController::class)->except(['create', 'edit']);
 
     Route::resource('faq', QuestionsController::class)->except(['create', 'edit']);
+
+    Route::resource('parts', PartsController::class)->except(['create', 'edit']);
   });
 });
