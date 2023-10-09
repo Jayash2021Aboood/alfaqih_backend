@@ -32,6 +32,7 @@ class PartsController extends Controller
     {
         $request->validate([
             'img' => 'required|file',
+            'cars' => 'required|string',
         ]);
 
 
@@ -64,6 +65,11 @@ class PartsController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'cars' => 'required|string',
+        ]);
+
         $part = Part::find($id);
 
         if (!$part) {
