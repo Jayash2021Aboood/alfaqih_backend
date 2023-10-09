@@ -35,6 +35,6 @@ Route::group([
 
     Route::resource('parts', PartsController::class)->except(['create', 'edit']);
 
-    Route::resource('parts_orders', PartsOrderController::class)->except(['create', 'edit', 'store']);
+    Route::resource('parts_orders', PartsOrdersController::class)->except(['create', 'edit', 'store']);
   });
 });
