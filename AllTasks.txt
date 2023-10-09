@@ -1,0 +1,17 @@
+
+
+1- make cars validation required in (create,update) PartsController.
+
+
+
+
+Notes:
+1- ask about how we can update car images
+and delete one image from the images 
+and add one image to the privous images 
+
+2- when create order must assign user from the token not send user from api.
+3- Create Page With Api With Names MyOrders.
+4- Create Page With Api With Names MyPartsOrders.
+5- Orders Status must include not binary values must be (request,done,canceled)
+6- in Comments stars columns display integer number and it must to dipslay double vlaue
