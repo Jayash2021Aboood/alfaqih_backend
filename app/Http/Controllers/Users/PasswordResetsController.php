@@ -34,6 +34,8 @@ class PasswordResetsController extends Controller
                 'token' => $token,
                 'created_at' => now(),
             ]);
+            
+            $passwordResetToken = DB::table('password_reset_tokens')->where('email', $request->email)->first();
         }
 
         $token = $passwordResetToken->token;
