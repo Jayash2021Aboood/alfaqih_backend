@@ -15,3 +15,18 @@ and add one image to the privous images
 4- Create Page With Api With Names MyPartsOrders.
 5- Orders Status must include not binary values must be (request,done,canceled)
 6- in Comments stars columns display integer number and it must to dipslay double vlaue
+
+
+
+1- Make rate length is longer in Comments table  ==================================== Done.
+2- Remove unwanted property form GetAllCars endpoint:    ============================ Done.
+        commission
+        ceated_at
+        updated_at
+        shipping cost
+
+        specs.check
+        specs.color
+        specs.insideColor
+
+3- Run Script that used to delete un used images.  ================================== Done.
