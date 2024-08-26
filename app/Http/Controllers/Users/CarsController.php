@@ -11,10 +11,18 @@ class CarsController extends Controller
 {
     public function get() {
         $cars = Car::all();
-        $cars->makeHidden(['imgs','des']);
+
+        //remove unwanted column with its value from cars array object
+        $cars->makeHidden(['imgs','des','commission','shipping_cost','created_at','updated_at']);
 
         $result = $cars->map(function ($car) {
             $car->specs = json_decode($car->specs);
+
+            //remove unwanted column with its value from specs object
+            unset($car->specs->check);
+            unset($car->specs->color);
+            unset($car->specs->insideColor);
+
             return $car;
         });
 
