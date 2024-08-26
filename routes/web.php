@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CarsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('CleanUnusedCarImages',[CarsController::class, 'CleanUnusedCarImages']);
+Route::get('SayHi',[CarsController::class, 'SayHi']);

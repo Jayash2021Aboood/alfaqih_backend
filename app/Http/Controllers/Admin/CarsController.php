@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CarResource;
 use App\Models\Car;
+use App\Models\Part;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class CarsController extends Controller
@@ -140,4 +142,149 @@ class CarsController extends Controller
 
         return response()->json(['message' => 'Car deleted'], 204);
     }
+
+    public function SayHi(){
+        Log::info('I am Say Hi Method  ' . now());
+        return "Hi Was Loged  " . now();
+    }
+
+    public function GetAllDatabaseFiles() : array{
+        $allfiles = array();
+
+        $cars = Car::all();
+        $parts = Part::all();
+
+        foreach ($cars as $car) {
+            $registeredImages = explode('|', $car->imgs);
+            $registeredImages[] = $car->img;
+
+            $allfiles = array_merge($allfiles, $registeredImages);
+        }
+
+        foreach ($parts as $part) {
+            $registeredImages = explode('|', $part->imgs);
+            $registeredImages[] = $part->img;
+
+            $allfiles = array_merge($allfiles, $registeredImages);
+        }
+
+        return $allfiles;
+    }
+
+    public function GetAllFilesFromStorage() : array{
+        $allfiles = array();
+        $cars = Storage::disk('public')->files('car_images');
+        $parts = Storage::disk('public')->files('part_images');
+        $allfiles = array_merge($cars, $parts);
+        return $allfiles;
+    }
+
+
+    public function CleanUnusedCarImages(Request $request){
+
+        $registeredImages = $this->GetAllDatabaseFiles();
+        $files = $this->GetAllFilesFromStorage();
+        echo 'All Registered Images '.count($registeredImages)  .' <br>';
+        // var_dump($registeredImages);
+        foreach ($registeredImages as $file ) {
+            echo $file . "<br>";
+        }
+
+
+        echo '<br>All Images Files '.count($files)  .' <br>';
+
+        // var_dump($files);
+        foreach ($files as $file ) {
+            echo $file . "<br>";
+        }
+
+        foreach ($files as $file) {
+            //$filePath = $directory . '/' . $file;
+
+            // Check if the file exists in the database
+            if (!in_array($file, $registeredImages)) {
+                // Remove the file
+                Storage::disk('public')->delete($file);
+            }
+        }
+
+
+        // var_dump($this->GetAllDatabaseFiles());
+        return;
+
+
+        $cars = Car::all();
+        $parts = Part::all();
+
+        foreach ($cars as $car) {
+            $registeredImages = explode('|', $car->imgs);
+            $registeredImages[] = $car->img;
+            // Get the directory path where the images are stored
+            $directory = 'car_images';
+    
+            // Get all files in the directory
+            $files = Storage::disk('public')->files($directory);
+    
+
+            echo 'All Registered Images '.count($registeredImages)  .' <br>';
+            // var_dump($registeredImages);
+            foreach ($registeredImages as $file ) {
+                echo $file . "<br>";
+            }
+
+
+            echo '<br>All Images Files '.count($files)  .' <br>';
+
+            // var_dump($files);
+            foreach ($files as $file ) {
+                echo $file . "<br>";
+            }
+            return;
+
+
+            foreach ($files as $file) {
+                $filePath = $directory . '/' . $file;
+    
+                // Check if the file exists in the database
+                if (!in_array($file, $registeredImages)) {
+                    // Remove the file
+                    Storage::disk('public')->delete($filePath);
+                }
+            }
+        }
+    
+
+        // $cars = Car::all();
+
+        // foreach ($cars as $car) {
+        //     $registeredImages = explode('|', $car->imgs);
+    
+            
+        //     // Get the directory path where the images are stored
+        //     $directory = public_path('car_images');
+    
+        //     // Get all files in the directory
+        //     $files = scandir($directory);
+    
+
+        //     echo 'All Registered Images';
+        //     var_dump($registeredImages);
+
+        //     echo 'All Images Files';
+
+        //     var_dump($registeredImages);
+        //     return;
+        //     foreach ($files as $file) {
+        //         $filePath = $directory . '/' . $file;
+    
+        //         // Check if the file exists in the database
+        //         if (!in_array($file, $registeredImages) && is_file($filePath)) {
+        //             // Remove the file
+        //             unlink($filePath);
+        //         }
+        //     }
+        // }
+        
+    }
+
 }
