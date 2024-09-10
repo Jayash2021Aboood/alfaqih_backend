@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CarsController;
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\QuestionsController;
 use App\Http\Controllers\Admin\CommentsController;
+use App\Http\Controllers\Admin\InvoicesController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PartsController;
 use App\Http\Controllers\Admin\PartsOrdersController;
@@ -26,6 +27,8 @@ Route::group([
     Route::resource('cars', CarsController::class)->except(['create', 'edit']);
 
     Route::resource('orders', OrdersController::class)->except(['create', 'edit', 'store']);
+
+    Route::resource('invoices', InvoicesController::class);
 
     Route::get('/users', [UsersController::class, 'get']);
 
