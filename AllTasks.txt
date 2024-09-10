@@ -30,3 +30,22 @@ and add one image to the privous images
         specs.insideColor
 
 3- Run Script that used to delete un used images.  ================================== Done.
+
+
+بيكون المتطلبات انشاء الجدول مع ال Api تبعه اللي هو CRUD Operation
+وكمان واحده API Download 
+ال Download:
+حتكون ممكن صفحة Html تكون محتوية البيانات ويتم حفظها كملف PDF يتم انشاء الملف وقت انشاء الفاتورة نفسها او يكون وقت استدعاء ال download
+
+Invoice Table:
+id      ==> contarct_number
+order_id
+user_id
+user_name
+national_id
+amount
+car_id
+car_model
+car_color
+car_base_number
+invoice_file
