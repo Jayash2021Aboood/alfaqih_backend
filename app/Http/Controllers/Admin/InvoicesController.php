@@ -73,43 +73,6 @@ class InvoicesController extends Controller
         $car_color = $specs['color'] ?? 'Unknown';
         $car_base_number = $specs['number'] ?? 'Unknown';
     
-/*        
-    // Load the DOCX template
-    $templateProcessor = new TemplateProcessor(storage_path('app/templates/invoice_template.docx'));
-
-    // Replace placeholders with actual data
-    $templateProcessor->setValue('id', $order->id);
-    $templateProcessor->setValue('order_id', $order->id);
-    $templateProcessor->setValue('user_name', $user->name);
-    $templateProcessor->setValue('national_id', $user->national_id);
-    $templateProcessor->setValue('car_company', $car_company);
-    $templateProcessor->setValue('car_model', $car_year);
-    $templateProcessor->setValue('car_color', $car_color);
-    $templateProcessor->setValue('car_base_number', $car_base_number);
-    $templateProcessor->setValue('amount', $request->amount);
-
-    // Save the modified DOCX file
-    $docxFileName = 'invoice_' . time() . '.docx';
-    $docxFilePath = 'invoice_files/' . $docxFileName;
-    $templateProcessor->saveAs(storage_path('app/' . $docxFilePath));
-
-    // Set the PDF renderer
-    Settings::setPdfRendererName(Settings::PDF_RENDERER_DOMPDF);
-    Settings::setPdfRendererPath(base_path('vendor/dompdf/dompdf'));
-
-    // Load the DOCX and convert to PDF
-    $phpWord = IOFactory::load(storage_path('app/' . $docxFilePath));
-    $pdfWriter = IOFactory::createWriter($phpWord, 'PDF');
-
-    // Define the PDF file name and path
-    $pdfFileName = 'invoice_' . time() . '.pdf';
-    $pdfFilePath = 'invoice_files/' . $pdfFileName;
-
-    // Save the PDF file
-    $pdfWriter->save(storage_path('app/' . $pdfFilePath));
-
-*/
-
         // Create the invoice with the necessary details
         $invoice = Invoice::create([
             'order_id'        => $order->id,
@@ -127,12 +90,6 @@ class InvoicesController extends Controller
 
         // Generate PDF with the created invoice object
         $pdf = PDF::loadView('invoice_pdf', ['invoice' => $invoice]);
-
-        // // Set the font to a compatible Arabic font
-        // $pdf->getDomPDF()->getCanvas()->page_script(function ($canvas, $pageNumber, $fontMetrics) {
-        //     $font = $fontMetrics->getFont('DejaVu Sans', 'normal'); // Change to your font
-        //     $canvas->text(10, 10, 'Some text', $font, 12); // Example of adding text
-        // });
 
         // Define filename
         $filename = 'invoice_' . $invoice->order_id . '.pdf';
@@ -169,10 +126,4 @@ class InvoicesController extends Controller
         return response()->json(['message' => 'Invoice deleted'], 204);
     }
 
-    public function generatePdf()
-    {
-        $data = ['title' => 'السلام عليكم اخواني '];
-        $pdf = PDF::loadView('pdf_view', $data);
-        return $pdf->download('document.pdf');
-    }
 }
