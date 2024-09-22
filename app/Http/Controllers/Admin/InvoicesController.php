@@ -37,6 +37,8 @@ class InvoicesController extends Controller
     {
         // Validate the incoming request
         $request->validate([
+            'invoice_number' => 'required|string',
+            'invoice_date' => 'required|string',
             'order_id' => 'required|exists:orders,id',
             'amount' => 'required|numeric|min:0.01', // Ensure amount is greater than zero
         ]);
@@ -75,6 +77,8 @@ class InvoicesController extends Controller
     
         // Create the invoice with the necessary details
         $invoice = Invoice::create([
+            'invoice_number'  => $request->invoice_number,
+            'invoice_date'    => $request->invoice_date,
             'order_id'        => $order->id,
             'user_id'         => $user->id,
             'user_name'       => $user->name, // Use the name from the request
